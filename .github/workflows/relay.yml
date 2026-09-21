@@ -1,0 +1,16 @@
+name: relay-sg-all
+on:
+  workflow_dispatch:
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install huggingface_hub requests
+      - env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python relay_download.py
